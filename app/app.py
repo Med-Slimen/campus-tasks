@@ -4,7 +4,8 @@ app = Flask(__name__)
 
 @app.get("/health")
 def health():
-    return jsonify(status="ok")
+    app.logger.error("health check failed: database unreachable")
+    return jsonify(status="error"), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
